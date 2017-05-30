@@ -1,0 +1,94 @@
+<resources>
+    <string name="app_name">تطببق المهمات</string>
+
+    <string-array name="drawer_items_array">
+        <item>المهمات</item>
+        <item>الملف الشخصي</item>
+        <item>الخروج</item>
+    </string-array>
+
+    <string name="navigation_drawer_open" translatable="false">Open navigation drawer</string>
+    <string name="navigation_drawer_close" translatable="false">Close navigation drawer</string>
+
+    <string name="are_you_logout">هل تريد الخروج من تطبيق المهمات؟</string>
+    <string name="no">كلا</string>
+    <string name="yes">نعم</string>
+
+    <string name="home">المهمات</string>
+    <string name="profile">الملف الشخصي</string>
+    <string name="logout">الخروج</string>
+
+    <!-- Screen Titles -->
+    <string name="login_screen">تطبيق المهمات تسجيل الدخول</string>
+
+    <string name="input_vehicle_number">أدخل رقم الصهريج</string>
+    <string name="enter_password">أدخل كلمة السر</string>
+    <string name="input_user_number">أدخل رقمك كمستخدم</string>
+    <string name="please_input_vehicle_number">الرجاء ادخال رقم الصهريج</string>
+    <string name="please_enter_password">الرجاء ادخال كلمة المرور</string>
+    <string name="please_input_user_number">الرجاء ادخال رقمك كمستخدم</string>
+    <string name="please_enter_driver_number">الرجاء ادخال رقم السائق</string>
+    <string name="login">تسجيل الدخول</string>
+    <string name="automatic_time_inactive">الوقت التلقائي غير مفعل</string>
+    <string name="cancel">إلغاء </string>
+    <string name="enable">تفعيل</string>
+    <string name="gps_inactive">نظام تحديد الموقع غير مفعل</string>
+    <string name="ok">تابع</string>
+    <string name="wrong_information">المعلومات التي تم ادخالها غير صحيحة</string>
+    <string name="schedule">الجدول</string>
+    <string name="district">القطاع</string>
+    <string name="block">الحارة</string>
+    <string name="tank">الخزان</string>
+    <string name="time">الوقت</string>
+    <string name="measurements_before">المقاييس قبل النضح</string>
+    <string name="measurements_after">المقاييس بعد النضح</string>
+    <string name="black_tank"> الاسود</string>
+    <string name="colored_tank"> الملون</string>
+    <string name="comments">ملاحظات أخرى</string>
+    <string name="colored">الملون</string>
+    <string name="tasks_completed">تم انهاء المهمات</string>
+    <string name="save">حفظ</string>
+    <string name="username">الاسم</string>
+    <string name="driver_name">اسم السائق</string>
+    <string name="truck_name">اسم الصهريج</string>
+    <string name="truck"> الصهريج</string>
+    <string name="gps_disabled">تم تعطيل نظام تحديد الموقع</string>
+    <string name="gps_enabled">تم تفعيل نظام تحديد الموقع</string>
+    <string name="black_one"> اسود 1 </string>
+    <string name="color_one"> ملون  1</string>
+    <string name="black_two"> اسود 2 </string>
+    <string name="color_two"> ملون  2 </string>
+    <string name="user">المستخدم</string>
+    <string name="driver">السائق</string>
+    <string  name="mwm_should_be_installed">Offline maps are required to proceed. We have partnered with MAPS.ME to provide you with offline maps of the entire world.\nTo continue please download the app:</string>
+    <string  name="down_pro">Download MAPS.ME</string>
+    <string  name="url_pro">http://maps.me/get</string>
+    <string name="enter_vehicle_number">أدخل رقم الصهريج </string>
+    <string name="enter_driver_number">	أدخل رقم السائق</string>
+
+    <string name="driver_number">	السائق</string>
+    <string name="enter">دخول</string>
+    <string name="exit">خروج</string>
+    <string name="date">التاريخ</string>
+    <string name="truck_number">رقم الصهريج</string>
+    <string name="empty_truck_exit">الصهريج فارغ عند الدخول</string>
+    <string name="voucher_number">رقم فاتورة الدخول</string>
+    <string name="voucher_number_exit">رقم فاتورة الخروج</string>
+    <string name="weight_on_leave">الحمولة عند الخروج</string>
+    <string name="meter">م</string>
+    <string name="cause_of_leave">سبب الخروج</string>
+    <string name="voucher">رقم فاتورة</string>
+    <string name="voucher_akaider"> رقم فاتورة اكيدر</string>
+    <string name="exit_time">ساعة الخروج</string>
+    <string name="add"> +اضافة سجل دخول</string>
+    <string name="quantity">السعة</string>
+    <string name="enter_time">ساعة الدخول</string>
+    <string name="inside_camp">داخل المخيم</string>
+    <string name="outside">خروج</string>
+    <string name="missing">ادخل المعلومات المطلوبة</string>
+    <string name="fill_akider">الرجاء ادخال رقم فاتورة اكيدر</string>
+    <string name="volume_exceeded">الرجاء التأكد من سعة الصهريج</string>
+    <string name="data_not_saved">لم يتم حفظ المعلومات الجديدة</string>
+    <string name="proceed">تابع</string>
+    <string name="sejel">اضافة سجل</string>
+</resources>

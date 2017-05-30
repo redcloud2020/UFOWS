@@ -1,0 +1,302 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:layoutDirection="rtl"
+    android:orientation="vertical">
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:layoutDirection="rtl"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/unit_24"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:text="@string/district"
+                android:textColor="@color/black"
+                android:textSize="30sp"
+                android:textStyle="bold" />
+
+            <Spinner
+                android:id="@+id/district"
+                android:layout_width="100dp"
+
+                style="@style/AppTheme"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:padding="8dp"
+                android:textColor="@color/black"
+                android:textSize="30sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/unit_24"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:text="@string/block"
+                android:textColor="@color/black"
+                android:textSize="30sp"
+                android:textStyle="bold" />
+
+            <Spinner
+                android:id="@+id/block"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:padding="8dp"
+                android:textColor="@color/black"
+                android:textSize="30sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/unit_24"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:text="@string/tank"
+                android:textColor="@color/black"
+                android:textSize="30sp"
+                android:textStyle="bold" />
+
+            <Spinner
+                android:id="@+id/tank"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:padding="8dp"
+                android:textColor="@color/black"
+                android:textSize="30sp" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:orientation="vertical">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/light_grey"
+                android:orientation="vertical"
+                android:padding="@dimen/unit_16">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/unit_4"
+                    android:gravity="right"
+                    android:text="@string/measurements_before"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/unit_24_text"
+                    android:textStyle="bold" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="right"
+                            android:text="@string/black_tank"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/unit_20_text" />
+
+                        <EditText
+                            android:id="@+id/black_tank_number_before"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="right"
+                            android:inputType="numberSigned"
+                            android:nextFocusDown="@+id/color_tank_number_after"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/unit_20_text" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="right"
+                            android:text="@string/colored_tank"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/unit_20_text" />
+
+                        <EditText
+                            android:id="@+id/color_tank_number_before"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="right"
+                            android:inputType="numberSigned"
+                            android:nextFocusDown="@id/black_tank_number_before"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/unit_20_text" />
+                    </LinearLayout>
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:orientation="vertical"
+                android:padding="@dimen/unit_16">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/unit_4"
+                    android:gravity="right"
+                    android:text="@string/measurements_after"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/unit_24_text"
+                    android:textStyle="bold" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="right"
+                            android:text="@string/black_tank"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/unit_20_text" />
+
+                        <EditText
+                            android:id="@+id/black_tank_number_after"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="right"
+                            android:inputType="numberSigned"
+                            android:nextFocusDown="@+id/comment"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/unit_20_text" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="right"
+                            android:text="@string/colored_tank"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/unit_20_text" />
+
+                        <EditText
+                            android:id="@+id/color_tank_number_after"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="right"
+                            android:inputType="numberSigned"
+                            android:nextFocusDown="@id/black_tank_number_after"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/unit_20_text" />
+                    </LinearLayout>
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="@dimen/unit_16">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/unit_16"
+                    android:gravity="right"
+                    android:text="@string/comments"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/unit_24_text" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <EditText
+                        android:id="@+id/comment"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="right"
+                        android:inputType="textMultiLine"
+                        android:lines="2"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/unit_20_text" />
+
+
+                </LinearLayout>
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/save"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorPrimary"
+
+                android:text="@string/save"
+                android:textColor="@color/white"
+                android:textSize="@dimen/unit_20_text" />
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+</ScrollView>

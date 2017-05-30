@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.uni.ufows">
+
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+    <application
+        android:name="com.activeandroid.app.Application"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:largeHeap="true"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <meta-data
+            android:name="AA_DB_NAME"
+            android:value="ufow_db_11" />
+        <meta-data
+            android:name="AA_DB_VERSION"
+            android:value="17" />
+        <meta-data
+            android:name="AA_MODELS"
+            android:value="com.uni.ufow.models.Event, com.uni.ufow.models.GPSLog ,
+            com.uni.ufow.models.Role, com.uni.ufow.models.Tank, com.uni.ufow.models.User" />
+
+        <activity
+            android:name="com.uni.ufows.ui.MainActivity"
+            android:screenOrientation="portrait">
+
+        </activity>
+        <activity android:name="com.uni.ufows.ui.LoginActivity"></activity>
+        <activity android:name="com.uni.ufows.ui.PickDriverActivity"></activity>
+
+        <service
+            android:name="com.uni.ufows.service.LocationService"
+            android:enabled="true" />
+
+        <activity android:name="com.uni.ufows.ui.SplashScreen">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="71fd2f627f38f295b0d9c608302c1dcf474be462" />
+    </application>
+
+</manifest>

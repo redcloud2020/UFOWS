@@ -1,0 +1,48 @@
+<resources>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="thumbnail_size">80dp</dimen>
+    <dimen name="recycler_size">200dp</dimen>
+    <dimen name="thumbnail_horizontal_padding">8dp</dimen>
+    <dimen name="thumbnail_vertical_padding">10dp</dimen>
+    <dimen name="viewpager_margin">-64dp</dimen>
+    <dimen name="viewpager_margin_fix">32dp</dimen>
+
+    <dimen name="unit_2">2dp</dimen>
+    <dimen name="unit_4">4dp</dimen>
+    <dimen name="unit_6">6dp</dimen>
+    <dimen name="unit_8">8dp</dimen>
+    <dimen name="unit_10">10dp</dimen>
+    <dimen name="unit_12">12dp</dimen>
+    <dimen name="unit_16">16dp</dimen>
+    <dimen name="unit_24">24dp</dimen>
+    <dimen name="unit_36">36dp</dimen>
+    <dimen name="unit_32">32dp</dimen>
+    <dimen name="unit_48">48dp</dimen>
+    <dimen name="unit_64">56dp</dimen>
+    <dimen name="unit_96">96dp</dimen>
+
+
+    <dimen name="unit_2_text">2sp</dimen>
+    <dimen name="unit_4_text">4sp</dimen>
+    <dimen name="unit_6_text">6sp</dimen>
+    <dimen name="unit_8_text">8sp</dimen>
+    <dimen name="unit_10_text">10sp</dimen>
+    <dimen name="unit_12_text">12sp</dimen>
+    <dimen name="unit_16_text">16sp</dimen>
+    <dimen name="unit_20_text">20sp</dimen>
+    <dimen name="unit_24_text">24sp</dimen>
+    <dimen name="unit_28_text">28sp</dimen>
+    <dimen name="unit_36_text">36sp</dimen>
+    <dimen name="unit_48_text">48sp</dimen>
+    <dimen name="unit_64_text">64sp</dimen>
+    <dimen name="unit_96_text">96sp</dimen>
+    <dimen name="unit_22_text">22sp</dimen>
+    <dimen name="unit_26_text">26sp</dimen>
+    <dimen name="unit_18_text">18sp</dimen>
+
+    <dimen name="toobar_height">56dp</dimen>
+    <dimen name="toolbar_large">70dp</dimen>
+
+</resources>
