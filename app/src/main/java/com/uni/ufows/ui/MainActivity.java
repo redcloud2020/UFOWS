@@ -236,6 +236,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             public void onConnectivityError(String message) {
                 uploadComments();
                 setError(message);
+
             }
 
             @Override
@@ -267,6 +268,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 for (int i = 0; i < gpsLog.size(); i++) {
                     GpsLog.delete(GpsLog.class, gpsLog.get(i).getId());
                 }
+
 
             }
         });
@@ -457,6 +459,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             @Override
             public void onFinish() {
                 super.onFinish();
+                logout();
             }
         });
     }
