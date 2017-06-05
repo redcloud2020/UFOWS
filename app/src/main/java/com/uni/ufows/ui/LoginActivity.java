@@ -13,6 +13,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
@@ -24,6 +25,7 @@ import com.uni.ufows.R;
 import com.uni.ufows.config.Parameters;
 import com.uni.ufows.datalayer.models.Comment;
 import com.uni.ufows.datalayer.models.Event;
+import com.uni.ufows.datalayer.models.GpsLog;
 import com.uni.ufows.datalayer.models.Tank;
 import com.uni.ufows.datalayer.models.TankWrapperModel;
 import com.uni.ufows.datalayer.models.Truck;
@@ -67,9 +69,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     private ProgressBar progressBar;
 
-
+    private ImageView sync;
     private List<Event> measureLog;
     private List<Comment> commentLog;
+    private List<GpsLog> gpsLog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,6 +81,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         userNumberEt = (EditText) findViewById(R.id.user_number_edit_text);
         passwordEt = (EditText) findViewById(R.id.password_edit_text);
+        sync = (ImageView) findViewById(R.id.sync);
+        sync.bringToFront();
 
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
         progressBar.setVisibility(View.GONE);
@@ -85,6 +90,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         login = (Button) findViewById(R.id.login);
 
         login.setOnClickListener(this);
+        sync.setOnClickListener(this);
     }
 
     @Override
@@ -122,7 +128,95 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
 
                 break;
+            case R.id.sync:
+                    uploadAndLogout();
+                break;
+
         }
+    }
+    private void uploadAndLogout() {
+        progressBar.setVisibility(View.VISIBLE);
+        gpsLog = GpsLog.selectAll();
+        Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
+        String listString = gson.toJson(
+                gpsLog,
+                new TypeToken<ArrayList<GpsLog>>() {
+                }.getType());
+
+        JSONArray jsonArray = null;
+        try {
+            jsonArray = new JSONArray(listString);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        if (jsonArray != null && jsonArray.length() == 0)
+            try {
+                uploadGpsLog(jsonArray);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            }
+        else uploadComments();
+
+    }
+    private void uploadGpsLog(final JSONArray log) throws JSONException, UnsupportedEncodingException {
+
+        myHttpClient = new MyHttpClient();
+        RequestDataProvider requestDataProvider = new RequestDataProvider(this);
+        RequestModel requestModel = requestDataProvider.addLocation(
+                SecurePreferences.getInstance(this).getString(Parameters.USER_NUMBER),
+                SecurePreferences.getInstance(this).getString(Parameters.PASSWORD),
+                log
+        );
+        Type type = new TypeToken<UserWrapperModel>() {
+        }.getType();
+
+        myHttpClient.post(this, requestModel.getUrl(), requestModel.getParams(), new ServerResponseHandler<UserWrapperModel>(type) {
+
+            @Override
+            public void onStart() {
+                super.onStart();
+            }
+
+            @Override
+            public void onConnectivityError(String message) {
+                uploadComments();
+                setError(message);
+            }
+
+            @Override
+            public void onDataError(String message) {
+                setError(message);
+                uploadComments();
+            }
+
+            @Override
+            public void onServerFailure(String message) {
+                setError(message);
+                uploadComments();
+            }
+
+
+            @Override
+            public void onServerSuccess(UserWrapperModel data) {
+                for (int i = 0; i < gpsLog.size(); i++) {
+                    GpsLog.delete(GpsLog.class, gpsLog.get(i).getId());
+                }
+                uploadComments();
+
+
+            }
+
+            @Override
+            public void onFinish() {
+                super.onFinish();
+                for (int i = 0; i < gpsLog.size(); i++) {
+                    GpsLog.delete(GpsLog.class, gpsLog.get(i).getId());
+                }
+
+            }
+        });
     }
 
     private void proceedToLogin() {
@@ -567,6 +661,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
+        else {
+            if(progressBar!=null)
+                progressBar.setVisibility(View.GONE);
+        }
 
 
 
@@ -621,16 +719,19 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             @Override
             public void onConnectivityError(String message) {
                 setError(message);
+                uploadMeasurements();
             }
 
             @Override
             public void onDataError(String message) {
                 setError(message);
+                uploadMeasurements();
             }
 
             @Override
             public void onServerFailure(String message) {
                 setError(message);
+                uploadMeasurements();
             }
 
 
@@ -695,6 +796,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
             @Override
             public void onFinish() {
+                if(progressBar!=null)
+                progressBar.setVisibility(View.GONE);
                 super.onFinish();
             }
         });
