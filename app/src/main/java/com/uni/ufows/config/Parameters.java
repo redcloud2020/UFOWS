@@ -45,4 +45,6 @@ public interface Parameters {
     String LONGITUDE = "LONGITUDE";
 
     String USER_ID_ABOUT = "USER_ID_ABOUT";
+    String DRIVER_ID = "DRIVER_ID";
+    String TRUCK_ID = "TRUCK_ID";
 }

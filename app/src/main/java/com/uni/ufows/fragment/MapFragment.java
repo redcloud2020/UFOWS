@@ -552,7 +552,7 @@ public class MapFragment extends Fragment implements View.OnClickListener {
                                 userId = user.getUserId();
                             }
                             if (!TextUtils.isEmpty(SecurePreferences.getInstance(getActivity()).getString(Parameters.VEHICLE_NUMBER))) {
-                                truckId = SecurePreferences.getInstance(getActivity()).getString(Parameters.VEHICLE_NUMBER);
+                                truckId = SecurePreferences.getInstance(getActivity()).getString(Parameters.TRUCK_ID);
                             }
 
                             if (!TextUtils.isEmpty(commentString) || blackBeforeValue != 0 || blackAfterValue != 0
@@ -572,31 +572,37 @@ public class MapFragment extends Fragment implements View.OnClickListener {
                                                 }
 
                                         }
-                                    List<Comment> allComments = Comment.getAll();
-                                    if (allComments != null && !allComments.isEmpty())
-                                        for (int i = 0; i < allComments.size(); i++) {
-                                            if (commendid != null)
-                                                if (allComments.get(i).getComment_Id().equals(commendid))
-                                                    Comment.delete(Comment.class, allComments.get(i).getId());
 
-                                        }
-
-                                    if (TextUtils.isEmpty(commendid))
-                                        commendid = UUID.randomUUID().toString();
                                     String tankId = "";
                                     if (selectedTank != null && selectedTank.getTankId() != null)
                                         tankId = selectedTank.getTankId();
 
-                                    Comment comment = new Comment(commendid, Methods.getCurrentTimeStamp(), commentString,
-                                            userId,
-                                            SecurePreferences.getInstance(getActivity()).getString("d"),
-                                            tankId);
-                                    comment.save();
+                                    if(!TextUtils.isEmpty(commentString)) {
+                                        List<Comment> allComments = Comment.getAll();
+                                        if (allComments != null && !allComments.isEmpty())
+                                            for (int i = 0; i < allComments.size(); i++) {
+                                                if (commendid != null)
+                                                    if (allComments.get(i).getComment_Id().equals(commendid))
+                                                        Comment.delete(Comment.class, allComments.get(i).getId());
+
+                                            }
+
+                                        if (TextUtils.isEmpty(commendid))
+                                            commendid = UUID.randomUUID().toString();
+
+                                        Comment comment = new Comment(commendid, Methods.getCurrentTimeStamp(), commentString,
+                                                userId,
+                                                SecurePreferences.getInstance(getActivity()).getString("d"),
+                                                tankId);
+                                        comment.save();
+                                    } else {
+                                        commendid = "";
+                                    }
 
 
                                     Event e = new Event(eventId, Methods.getCurrentTimeStamp(), userId, "", tankId,
                                             blackBeforeValue, blackAfterValue, colorBeforeValue, colorAfterValue,
-                                            commendid, latitude, longitude);
+                                            commendid, latitude, longitude, truckId, driverId);
                                     e.save();
                                     mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
                                     event = null;

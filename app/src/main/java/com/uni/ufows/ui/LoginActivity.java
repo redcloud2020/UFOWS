@@ -10,6 +10,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.view.ContextThemeWrapper;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -74,6 +75,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private List<Comment> commentLog;
     private List<GpsLog> gpsLog;
 
+    private boolean uploadSuccess = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -130,11 +133,14 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 break;
             case R.id.sync:
                     uploadAndLogout();
+
                 break;
 
         }
     }
     private void uploadAndLogout() {
+        uploadSuccess = true;
+
         progressBar.setVisibility(View.VISIBLE);
         gpsLog = GpsLog.selectAll();
         Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
@@ -143,13 +149,15 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 new TypeToken<ArrayList<GpsLog>>() {
                 }.getType());
 
+        Log.e("emad", listString);
+
         JSONArray jsonArray = null;
         try {
             jsonArray = new JSONArray(listString);
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        if (jsonArray != null && jsonArray.length() == 0)
+        if (jsonArray != null && jsonArray.length() != 0)
             try {
                 uploadGpsLog(jsonArray);
             } catch (JSONException e) {
@@ -159,14 +167,15 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             }
         else uploadComments();
 
+
     }
     private void uploadGpsLog(final JSONArray log) throws JSONException, UnsupportedEncodingException {
 
         myHttpClient = new MyHttpClient();
-        RequestDataProvider requestDataProvider = new RequestDataProvider(this);
+        RequestDataProvider requestDataProvider = new RequestDataProvider(LoginActivity.this);
         RequestModel requestModel = requestDataProvider.addLocation(
-                SecurePreferences.getInstance(this).getString(Parameters.USER_NUMBER),
-                SecurePreferences.getInstance(this).getString(Parameters.PASSWORD),
+                SecurePreferences.getInstance(LoginActivity.this).getString(Parameters.USER_NUMBER),
+                SecurePreferences.getInstance(LoginActivity.this).getString(Parameters.PASSWORD),
                 log
         );
         Type type = new TypeToken<UserWrapperModel>() {
@@ -226,7 +235,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             SecurePreferences.getInstance(LoginActivity.this).put(Parameters.USER_NUMBER, userNumber);
             SecurePreferences.getInstance(LoginActivity.this).put("my_name", myUser.getFirstNameAr()+" "+myUser.getLastNameAr());
             SecurePreferences.getInstance(LoginActivity.this).put(Parameters.USER_ID_FOR_LOG, myUser.getUserId());
-            SecurePreferences.getInstance(LoginActivity.this).put(Parameters.USER_ID_ABOUT, myUser.getEmployerId());
+            SecurePreferences.getInstance(LoginActivity.this).put(Parameters.USER_ID_ABOUT, myUser.getUserId());
 
             SecurePreferences.getInstance(LoginActivity.this).put(Parameters.PASSWORD, Methods.md5(password));
             Intent homeIntent = new Intent(LoginActivity.this, PickDriverActivity.class);
@@ -410,6 +419,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
     private void setError(String message) {
+        uploadSuccess = false;
         Toast.makeText(this, message, Toast.LENGTH_LONG).show();
     }
 
@@ -653,21 +663,22 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        if(jsonArray!=null && jsonArray.length()!=0)
-        try {
-            uploadMeasurementList(jsonArray);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
+        if(jsonArray != null && jsonArray.length() != 0)
+            try {
+                uploadMeasurementList(jsonArray);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            }
         else {
             if(progressBar!=null)
                 progressBar.setVisibility(View.GONE);
+            if(uploadSuccess) {
+                Toast.makeText(LoginActivity.this, "تم تحميل المعلومات بنجاح", Toast.LENGTH_LONG).show();
+                uploadSuccess = false;
+            }
         }
-
-
-
     }
 
     private void uploadComments() {
@@ -755,7 +766,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         myHttpClient = new MyHttpClient();
         RequestDataProvider requestDataProvider = new RequestDataProvider(LoginActivity.this);
-        RequestModel requestModel = requestDataProvider.sendMeasurements(
+        RequestModel requestModel = requestDataProvider.addMeasurementsEmptying(
                 SecurePreferences.getInstance(LoginActivity.this).getString(Parameters.USER),
                 SecurePreferences.getInstance(LoginActivity.this).getString(Parameters.PASSWORD),
                 log
@@ -799,6 +810,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 if(progressBar!=null)
                 progressBar.setVisibility(View.GONE);
                 super.onFinish();
+                if(uploadSuccess) {
+                    Toast.makeText(LoginActivity.this, "تم تحميل المعلومات بنجاح", Toast.LENGTH_LONG).show();
+                    uploadSuccess = false;
+                }
             }
         });
     }

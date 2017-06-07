@@ -36,6 +36,7 @@ public class PickDriverActivity extends AppCompatActivity implements View.OnClic
          private TextView driverNumber;
 
         ArrayList<String> trucks = new ArrayList<>();
+        ArrayList<String> truckTranslation = new ArrayList<>();
 
         private List<User> drivers = new ArrayList<>();
         private List<User> driversSorted = new ArrayList<>();
@@ -71,6 +72,7 @@ public class PickDriverActivity extends AppCompatActivity implements View.OnClic
 
             for (int i = 0; i < truckList.size(); i++) {
                 trucks.add(truckList.get(i).getTruck_number());
+                truckTranslation.add(truckList.get(i).getTruck_Id());
             }
 
 
@@ -123,7 +125,9 @@ public class PickDriverActivity extends AppCompatActivity implements View.OnClic
                         driversSorted.get(driverName.getSelectedItemPosition()).getLastNameAr());
                 SecurePreferences.getInstance(this).put("d", driversSorted.get(driverName.getSelectedItemPosition()).getUserId());
                 SecurePreferences.getInstance(this).put(Parameters.USER_ID_ABOUT, driversSorted.get(driverName.getSelectedItemPosition()).getUserName());
+                SecurePreferences.getInstance(this).put(Parameters.DRIVER_ID, driversSorted.get(driverName.getSelectedItemPosition()).getUserId());
                 SecurePreferences.getInstance(this).put(Parameters.VEHICLE_NUMBER, trucks.get(truckNumber.getSelectedItemPosition()));
+                SecurePreferences.getInstance(this).put(Parameters.TRUCK_ID, truckTranslation.get(truckNumber.getSelectedItemPosition()));
 
                 SecurePreferences.getInstance(this).put(Parameters.FIRST_TIME, Parameters.FIRST_TIME);
                 Intent homeIntent = new Intent(PickDriverActivity.this, MainActivity.class);

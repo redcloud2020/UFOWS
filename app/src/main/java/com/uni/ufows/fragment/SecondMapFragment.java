@@ -499,8 +499,8 @@ public class SecondMapFragment extends Fragment implements View.OnClickListener 
                                 eventId = event.getEvent_Id();
                             }
 
-                            if (!TextUtils.isEmpty(SecurePreferences.getInstance(getActivity()).getString(Parameters.USER_ID_ABOUT))) {
-                                driverId = SecurePreferences.getInstance(getActivity()).getString(Parameters.USER_ID_ABOUT);
+                            if (!TextUtils.isEmpty(SecurePreferences.getInstance(getActivity()).getString(Parameters.DRIVER_ID))) {
+                                driverId = SecurePreferences.getInstance(getActivity()).getString(Parameters.DRIVER_ID);
                             }
                             if (!TextUtils.isEmpty(SecurePreferences.getInstance(getActivity()).getString(Parameters.USER_ID_FOR_LOG))) {
                                 userId = SecurePreferences.getInstance(getActivity()).getString(Parameters.USER_ID_FOR_LOG);
@@ -508,9 +508,11 @@ public class SecondMapFragment extends Fragment implements View.OnClickListener 
                                 User user = User.getUserByName(SecurePreferences.getInstance(getActivity()).getString(Parameters.USER_NUMBER));
                                 userId = user.getUserId();
                             }
-                            if (!TextUtils.isEmpty(SecurePreferences.getInstance(getActivity()).getString(Parameters.VEHICLE_NUMBER))) {
-                                truckId = SecurePreferences.getInstance(getActivity()).getString(Parameters.VEHICLE_NUMBER);
+                            if (!TextUtils.isEmpty(SecurePreferences.getInstance(getActivity()).getString(Parameters.TRUCK_ID))) {
+                                truckId = SecurePreferences.getInstance(getActivity()).getString(Parameters.TRUCK_ID);
                             }
+
+
 
                             if (!TextUtils.isEmpty(commentString) || blackBeforeValue != 0 || blackAfterValue != 0
                                     || colorBeforeValue != 0 || colorAfterValue != 0) {
@@ -529,31 +531,36 @@ public class SecondMapFragment extends Fragment implements View.OnClickListener 
                                                 }
 
                                         }
-                                    List<Comment> allComments = Comment.getAll();
-                                    if (allComments != null && !allComments.isEmpty())
-                                        for (int i = 0; i < allComments.size(); i++) {
-                                            if (commendid != null)
-                                                if (allComments.get(i).getComment_Id().equals(commendid))
-                                                    Comment.delete(Comment.class, allComments.get(i).getId());
 
-                                        }
+                                    if(!TextUtils.isEmpty(commentString)) {
+                                        List<Comment> allComments = Comment.getAll();
+                                        if (allComments != null && !allComments.isEmpty())
+                                            for (int i = 0; i < allComments.size(); i++) {
+                                                if (commendid != null)
+                                                    if (allComments.get(i).getComment_Id().equals(commendid))
+                                                        Comment.delete(Comment.class, allComments.get(i).getId());
 
-                                    if (TextUtils.isEmpty(commendid))
-                                        commendid = UUID.randomUUID().toString();
+                                            }
+
+                                        if (TextUtils.isEmpty(commendid))
+                                            commendid = UUID.randomUUID().toString();
+
+                                        Comment comment = new Comment(commendid, Methods.getCurrentTimeStamp(), commentString,
+                                                userId,
+                                                SecurePreferences.getInstance(getActivity()).getString("d"),
+                                                tankId);
+                                        comment.save();
+                                    } else {
+                                        commendid = "";
+                                    }
 
 
-
-                                    Comment comment = new Comment(commendid, Methods.getCurrentTimeStamp(), commentString,
-                                            userId,
-                                            SecurePreferences.getInstance(getActivity()).getString("d"),
-                                            tankId);
-                                    comment.save();
 
                                     if(TextUtils.isEmpty(eventId))
                                         eventId = UUID.randomUUID().toString();
                                     Event e = new Event(eventId, Methods.getCurrentTimeStamp(), userId, "", tankId,
                                             blackBeforeValue, blackAfterValue, colorBeforeValue, colorAfterValue,
-                                            commendid, latitude, longitude);
+                                            commendid, latitude, longitude, truckId, driverId);
                                     e.save();
                                     event= null;
 

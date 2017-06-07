@@ -38,6 +38,7 @@ public class GpsLog extends Model implements Parcelable {
     @Expose
     @Column(name = "Longitude")
     double Longitude;
+
     public GpsLog (){}
     public static List<GpsLog> selectAll(){
         return new Select().from(GpsLog.class).execute();

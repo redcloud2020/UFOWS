@@ -35,8 +35,8 @@ public class LocationService extends Service
     public MyLocationListener listener;
     public Location previousBestLocation = null;
 
-    private int vehicleId;
-    private int driverId;
+    private String vehicleId;
+    private String driverId;
     private String userId;
 
     Intent intent;
@@ -171,19 +171,20 @@ public class LocationService extends Service
                         SimpleDateFormat s = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
                         String format = s.format(new Date());
 
-                        if(!TextUtils.isEmpty(SecurePreferences.getInstance(getApplicationContext()).getString(Parameters.DRIVER_NUMBER))) {
-                            driverId = Integer.parseInt(SecurePreferences.getInstance(getApplicationContext()).getString(Parameters.DRIVER_NUMBER));
+                        if(!TextUtils.isEmpty(SecurePreferences.getInstance(getApplicationContext()).getString(Parameters.DRIVER_ID))) {
+                            driverId = SecurePreferences.getInstance(getApplicationContext()).getString(Parameters.DRIVER_ID);
                         }
-                        if(!TextUtils.isEmpty(SecurePreferences.getInstance(getApplicationContext()).getString(Parameters.USER_NUMBER))) {
+                        if(!TextUtils.isEmpty(SecurePreferences.getInstance(getApplicationContext()).getString(Parameters.USER_ID_FOR_LOG))) {
                             userId = SecurePreferences.getInstance(getApplicationContext()).getString(Parameters.USER_ID_FOR_LOG);
                         }
-                        if(!TextUtils.isEmpty(SecurePreferences.getInstance(getApplicationContext()).getString(Parameters.VEHICLE_NUMBER))) {
-                            vehicleId = Integer.parseInt(SecurePreferences.getInstance(getApplicationContext()).getString(Parameters.VEHICLE_NUMBER));
+                        if(!TextUtils.isEmpty(SecurePreferences.getInstance(getApplicationContext()).getString(Parameters.TRUCK_ID))) {
+                            vehicleId = SecurePreferences.getInstance(getApplicationContext()).getString(Parameters.TRUCK_ID);
                         }
+
                         try {
                             ActiveAndroid.beginTransaction();
-                            GpsLog gpsLog = new GpsLog(UUID.randomUUID().toString(), format, "",
-                                    "",
+                            GpsLog gpsLog = new GpsLog(UUID.randomUUID().toString(), format, vehicleId,
+                                    driverId,
                                     userId,
                                     loc.getLatitude(), loc.getLongitude());
                             gpsLog.save();

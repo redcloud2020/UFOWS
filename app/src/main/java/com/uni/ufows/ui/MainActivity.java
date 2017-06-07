@@ -293,7 +293,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        if (jsonArray != null && jsonArray.length() == 0)
+        if (jsonArray != null && jsonArray.length() != 0)
             try {
                 uploadGpsLog(jsonArray);
             } catch (JSONException e) {
@@ -414,7 +414,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         myHttpClient = new MyHttpClient();
         RequestDataProvider requestDataProvider = new RequestDataProvider(MainActivity.this);
-        RequestModel requestModel = requestDataProvider.sendMeasurements(
+        RequestModel requestModel = requestDataProvider.addMeasurementsEmptying(
                 SecurePreferences.getInstance(MainActivity.this).getString(Parameters.USER_NUMBER),
                 SecurePreferences.getInstance(MainActivity.this).getString(Parameters.PASSWORD),
                 log

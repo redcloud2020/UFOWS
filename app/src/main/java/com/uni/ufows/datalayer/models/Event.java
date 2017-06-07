@@ -59,6 +59,19 @@ public class Event extends Model implements Parcelable {
     @Column(name="Longitude")
     double Longitude;
 
+    @Expose
+    @Column(name="Truck_Id")
+    String Truck_Id;
+
+    @Expose
+    @Column(name="Driver_user_Id")
+    String Driver_user_Id;
+
+    @Expose
+    @Column(name="Time_user")
+    String Time_user;
+
+
     public Event(){}
 
     public static Event selectById(String id){
@@ -72,7 +85,7 @@ public class Event extends Model implements Parcelable {
     }
 
 
-    public Event(String event_Id, String timestamp, String cfw_user_Id, String task_Id, String tank_Id, double measurement1_black, double measurement2_black, double measurement1_color, double measurement2_color, String comment_Id, double latitude, double longitude) {
+    public Event(String event_Id, String timestamp, String cfw_user_Id, String task_Id, String tank_Id, double measurement1_black, double measurement2_black, double measurement1_color, double measurement2_color, String comment_Id, double latitude, double longitude, String truck_id, String driver_id) {
         Event_Id = event_Id;
         Timestamp = timestamp;
         Cfw_user_Id = cfw_user_Id;
@@ -85,6 +98,10 @@ public class Event extends Model implements Parcelable {
         Comment_Id = comment_Id;
         Latitude = latitude;
         Longitude = longitude;
+
+        Truck_Id = truck_id;
+        Driver_user_Id = driver_id;
+        Time_user = timestamp;
     }
 
     public String getEvent_Id() {
@@ -203,6 +220,9 @@ public class Event extends Model implements Parcelable {
         dest.writeString(this.Comment_Id);
         dest.writeDouble(this.Latitude);
         dest.writeDouble(this.Longitude);
+        dest.writeString(this.Truck_Id);
+        dest.writeString(this.Driver_user_Id);
+        dest.writeString(this.Time_user);
     }
 
     protected Event(Parcel in) {
@@ -218,6 +238,9 @@ public class Event extends Model implements Parcelable {
         this.Comment_Id = in.readString();
         this.Latitude = in.readDouble();
         this.Longitude = in.readDouble();
+        this.Truck_Id = in.readString();
+        this.Driver_user_Id = in.readString();
+        this.Time_user = in.readString();
     }
 
     public static final Creator<Event> CREATOR = new Creator<Event>() {
@@ -247,6 +270,9 @@ public class Event extends Model implements Parcelable {
                 ", Comment_Id='" + Comment_Id + '\'' +
                 ", Latitude=" + Latitude +
                 ", Longitude=" + Longitude +
+                ", Truck_Id=" + Truck_Id +
+                ", Driver_user_Id=" + Driver_user_Id +
+                ", Time_user=" + Time_user +
                 '}';
     }
 }
